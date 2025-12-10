@@ -4,18 +4,19 @@ import { getSurveyResults } from '@/lib/actions/surveys';
 import Link from 'next/link';
 import ResultsChart from '@/components/ResultsChart';
 
-export default async function SurveyResultsPage({
-  params,
-}: {
-  params: { id: string };
+export default async function SurveyResultsPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
+  const { id } = params;
+
   const session = await getSession();
 
   if (!session || session.role !== 'admin') {
     redirect('/login');
   }
 
-  const result = await getSurveyResults(params.id);
+  const result = await getSurveyResults(id);
 
   if (result.error) {
     return (
@@ -106,7 +107,7 @@ export default async function SurveyResultsPage({
 
         <div className="flex justify-center gap-4">
           <Link
-            href={`/admin/surveys/${params.id}/edit`}
+            href={`/admin/surveys/${id}/edit`}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
           >
             Edit Survey
