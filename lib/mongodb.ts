@@ -28,7 +28,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
       return mongoose;
     });
   }
@@ -53,13 +53,13 @@ if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!(global as any)._mongoClientPromise) {
-    client = new MongoClient(MONGODB_URI, options);
+    client = new MongoClient(MONGODB_URI!, options);
     (global as any)._mongoClientPromise = client.connect();
   }
   clientPromise = (global as any)._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(MONGODB_URI, options);
+  client = new MongoClient(MONGODB_URI!, options);
   clientPromise = client.connect();
 }
 
