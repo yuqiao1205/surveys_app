@@ -64,13 +64,13 @@ export default function Header({ session }: HeaderProps) {
             ) : (
               <>
                 <Link
-                  href="/login"
+                  href="/auth"
                   className="hover:opacity-90 transition"
                 >
                   Login
                 </Link>
                 <Link
-                  href="/register"
+                  href="/auth"
                   className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold"
                 >
                   Register
